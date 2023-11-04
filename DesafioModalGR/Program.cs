@@ -5,7 +5,8 @@ namespace DesafioModalGR
     {
         static void Main(string[] args)
         {
-            ProgramaDeEmprestimo.Executar();
+            //ProgramaDeEmprestimo.Executar();
+            NotificadorDeAniversariante.Executar();
         }
     }
 }
