@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 namespace DesafioModalGR
 {
     class NotificadorDeAniversariante
@@ -12,21 +13,42 @@ namespace DesafioModalGR
         {
             Console.WriteLine("Digite o mes (em numero inteiro)");
             int.TryParse(Console.ReadLine(), out int mes);
-            using (TextFieldParser parser = new TextFieldParser(@"C:\Users\PC\source\repos\DesafioModalGR\DesafioModalGR\MOCK_DATA.csv"))
+            if (mes <= 0 || mes > 12)
             {
-                parser.TextFieldType = FieldType.Delimited;
-                parser.SetDelimiters("|");
-                Console.WriteLine("Esses sao os aniversariantes do Mes!! ");
-                while (!parser.EndOfData)
+                Console.WriteLine("Insira um mes valido!");
+                return;
+            }
+
+            string path = @"C:\Users\PC\Desktop\aniversariantes.txt";
+            using (FileStream fs = File.Create(path))
+            {
+
+                using (TextFieldParser parser = new TextFieldParser(@"C:\Users\PC\source\repos\DesafioModalGR\DesafioModalGR\MOCK_DATA.csv"))
                 {
-                    // Processa a linha
-                    string[] fields = parser.ReadFields();
-                    for (int k = 0; k < fields.Length; k++)
+                    parser.TextFieldType = FieldType.Delimited;
+                    parser.SetDelimiters("|");
+                    Console.WriteLine("Esses sao os aniversariantes do Mes!! ");
+                    while (!parser.EndOfData)
                     {
-                        DateTime.TryParse(fields[3], out DateTime dt);
-                        if (dt.Month == mes)
+                        // Processa a linha
+                        string[] fields = parser.ReadFields();
+                        string row = "";
+                        for (int k = 0; k < fields.Length; k++)
                         {
-                            Console.WriteLine(fields[k]);
+                            DateTime.TryParse(fields[3], out DateTime dt);
+                            if (dt.Month == mes)
+                            {
+                                if (k < 3)
+                                    row += fields[k] + ",";
+                                Console.WriteLine(fields[k]);
+                                if (k == 3)
+                                {
+                                    row += fields[k] + "\n";
+                                    byte[] info = new UTF8Encoding(true).GetBytes(row);
+                                    fs.Write(info, 0, info.Length);
+                                }
+                            }
+                                
                         }
                     }
                 }
