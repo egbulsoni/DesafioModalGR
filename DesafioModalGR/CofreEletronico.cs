@@ -15,30 +15,37 @@ namespace DesafioModalGR
             string password2 = "#SomosModal2023";
             string password3 = "MinhaSenhaQualquer";
 
-            using (DESCryptoServiceProvider desAlg = new DESCryptoServiceProvider())
-            {
-                byte[] derivedKey = DeriveKey(key);
+            CriarChaveDES(key, password1);
 
-                desAlg.Key = derivedKey;
-                desAlg.IV = Encoding.ASCII.GetBytes("aaaaaaaa"); // Initialization Vector
+            CriarChave3DES(key, password2);
+
+            CriarChaveRijndael(key, password3);
+        }
+
+        private static void CriarChaveRijndael(string key, string password3)
+        {
+            using (RijndaelManaged rijAlg = new RijndaelManaged())
+            {
+                byte[] derivedKey = DeriveKey32(key);
+
+                rijAlg.Key = derivedKey;
+                rijAlg.IV = Encoding.ASCII.GetBytes("1234567890123456"); // Initialization Vector
 
                 // String to encrypt
-                string plaintext = password1;
-
-                // Ensure the plaintext is a multiple of 8 (DES block size)
-                int padding = 8 - (plaintext.Length % 8);
-                plaintext += new string(' ', padding);
+                string plaintext = password3;
 
                 // Encrypt the plaintext
-                byte[] plaintextBytes = Encoding.ASCII.GetBytes(plaintext);
-                byte[] ciphertext = Encrypt(desAlg, plaintextBytes);
+                byte[] ciphertext = EncryptRijndael(rijAlg, plaintext);
 
                 // Encode the encrypted data as base64 for easy printing
                 string encryptedBase64 = Convert.ToBase64String(ciphertext);
 
                 Console.WriteLine("Encrypted String: " + encryptedBase64);
             }
+        }
 
+        private static void CriarChave3DES(string key, string password2)
+        {
             using (TripleDESCryptoServiceProvider desAlg = new TripleDESCryptoServiceProvider())
             {
                 byte[] derivedKey = DeriveKey24(key);
@@ -62,19 +69,27 @@ namespace DesafioModalGR
 
                 Console.WriteLine("Encrypted String: " + encryptedBase64);
             }
+        }
 
-            using (RijndaelManaged rijAlg = new RijndaelManaged())
+        private static void CriarChaveDES(string key, string password1)
+        {
+            using (DESCryptoServiceProvider desAlg = new DESCryptoServiceProvider())
             {
-                byte[] derivedKey = DeriveKey32(key);
+                byte[] derivedKey = DeriveKey(key);
 
-                rijAlg.Key = derivedKey;
-                rijAlg.IV = Encoding.ASCII.GetBytes("1234567890123456"); // Initialization Vector
+                desAlg.Key = derivedKey;
+                desAlg.IV = Encoding.ASCII.GetBytes("aaaaaaaa"); // Initialization Vector
 
                 // String to encrypt
-                string plaintext = password3;
+                string plaintext = password1;
+
+                // Ensure the plaintext is a multiple of 8 (DES block size)
+                int padding = 8 - (plaintext.Length % 8);
+                plaintext += new string(' ', padding);
 
                 // Encrypt the plaintext
-                byte[] ciphertext = EncryptRijndael(rijAlg, plaintext);
+                byte[] plaintextBytes = Encoding.ASCII.GetBytes(plaintext);
+                byte[] ciphertext = Encrypt(desAlg, plaintextBytes);
 
                 // Encode the encrypted data as base64 for easy printing
                 string encryptedBase64 = Convert.ToBase64String(ciphertext);
