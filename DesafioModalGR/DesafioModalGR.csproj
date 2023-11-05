@@ -7,4 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="fernet-dotnet\**" />
+    <EmbeddedResource Remove="fernet-dotnet\**" />
+    <None Remove="fernet-dotnet\**" />
+  </ItemGroup>
+
 </Project>

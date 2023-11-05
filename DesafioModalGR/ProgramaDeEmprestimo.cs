@@ -72,17 +72,18 @@ namespace DesafioModalGR
                     int nMaiorDez = (((metade % 100) % 50) % 20) / 10;
                     int nMaiorCinco = ((((metade % 100) % 50) % 20) % 10) / 5;
                     int nMaiorDois = (((((metade % 100) % 50) % 20) % 10) % 5) / 2;
+                    int restouDois = ((((((metade % 100) % 50) % 20) % 10) % 5) % 2);
 
                     int nMenorVinte = metade / 20;
                     int nMenorDez = (metade % 20) / 10;
                     int nMenorCinco = ((metade % 20) % 10) / 5;
-                    int nMenorDois = (((metade % 20) % 10) % 5) / 2;
+                    int nMenorDois = (((metade % 20) % 10) % 5) / 2 + restouDois;
 
                     Console.WriteLine($"{valorEmprestimo} em notas Meio a Meio: ");
-                    Console.WriteLine($"{metade} em notas de maior valor: \n{nMaiorCem} x 100 reais;" +
+                    Console.WriteLine($"{metade - restouDois} em notas de maior valor: \n{nMaiorCem} x 100 reais;" +
                         $"\n{nMaiorCinquenta} x 50 reais;\n{nMaiorVinte} x 20 reais;\n{nMaiorDez} x 10 reais;" +
                         $"\n{nMaiorCinco} x 5 reais;\n{nMaiorDois} x 2 reais");
-                    Console.WriteLine($"{metade} em notas de menor valor: \n{nMenorVinte} x 20 reais;" +
+                    Console.WriteLine($"{metade + restouDois} em notas de menor valor: \n{nMenorVinte} x 20 reais;" +
                         $"\n{nMenorDez} x 10 reais;\n{nMenorCinco} x 5 reais;\n{nMenorDois} x 2 reais.");
                     break;
             }
