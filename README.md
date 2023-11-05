@@ -21,6 +21,7 @@ usando as criptografias DES, 3DES e Rijndael em conjunto com a chave #modalGR#GP
 O notificador de aniversariantes (2) funciona a partir de um numero de 1 a 12, representando os
 meses do ano, ele além de mostrar os aniversariantes do mês escolhido no terminal, cria um arquivo 
 aniversariantes.txt na área de trabalho do computador com as informações dos mesmos.
+OBS: ele pega as informações do arquivo MOCK_DATA.csv, que servem de dummy data e estão separadas por |.
 
 O programa de Empréstimo(3) pergunta alguns dados a respeito do usuário, se o empréstimo não ultrapassar
 duas vezes o valor do salário, e tiver um valor par, ele será aprovado - contanto que o usuário tenha 
