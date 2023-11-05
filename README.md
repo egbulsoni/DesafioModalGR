@@ -1,6 +1,6 @@
 # DesafioModalGR
 
-## Como usar
+## Utilizacao
 ```bash
 git clone <url_do_repositorio>
 abrir a pasta que foi descarregada
