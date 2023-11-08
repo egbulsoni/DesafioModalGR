@@ -43,7 +43,7 @@ namespace DesafioModalGR
                                 Console.WriteLine(fields[k]);
                                 if (k == 3)
                                 {
-                                    row += fields[k] + "\n";
+                                    row += fields[k] + ",\n";
                                     byte[] info = new UTF8Encoding(true).GetBytes(row);
                                     fs.Write(info, 0, info.Length);
                                 }
